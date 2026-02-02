@@ -3,7 +3,7 @@
 #include <string.h>
 #include "std_node.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc,const char *argv[]) {
     if (argc < 2) {
       //  printf("Usage: %s id1 name1 id2 name2 ...\n", argv[0]);
         return 1;
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     NodePtr temp = NULL;
 
     int i;
-    for (i = 1; i+1 < argc; i += 2) {
+    for (i = 1; i < argc; i += 2) {
 
         NodePtr newNode = (NodePtr) malloc(sizeof(Node));
 
@@ -30,20 +30,20 @@ int main(int argc, char *argv[]) {
             temp = head;
         } else {
             temp->next = newNode;
-            temp = temp->next;
+            temp = newNode;
         }
     }
 
 
     printf("Student List:\n");
     temp = head;
-    while (temp) {
+    while (temp != NULL) {
         printf("%d %s\n", temp->id, temp->name);
         temp = temp->next;
     }
 
     temp = head;
-    while (temp) {
+    while (temp != NULL) {
         head = head->next;
         free(temp);
         temp = head;
