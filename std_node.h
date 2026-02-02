@@ -2,7 +2,7 @@
 #define node_h
 
 struct node {
-    char id;
+    int id;
     char name[50];
     struct node *next;
 };
