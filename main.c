@@ -4,6 +4,11 @@
 #include "std_node.h"
 
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+      //  printf("Usage: %s id1 name1 id2 name2 ...\n", argv[0]);
+        return 1;
+    }
+
 
     typedef struct node Node;
     typedef Node* NodePtr;
@@ -30,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
 
 
-    printf("print linked list\n");
+    printf("Student List:\n");
     temp = head;
     while (temp) {
         printf("%d %s\n", temp->id, temp->name);
