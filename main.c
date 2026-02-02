@@ -6,7 +6,7 @@
 int main(int argc,const char *argv[]) {
     if (argc < 2) {
       //  printf("Usage: %s id1 name1 id2 name2 ...\n", argv[0]);
-        return 1;
+        return 0;
     }
 
 
@@ -17,7 +17,7 @@ int main(int argc,const char *argv[]) {
     NodePtr temp = NULL;
 
     int i;
-    for (i = 1; i < argc; i += 2) {
+    for (i = 1; i+1 < argc; i += 2) {
 
         NodePtr newNode = (NodePtr) malloc(sizeof(Node));
 
