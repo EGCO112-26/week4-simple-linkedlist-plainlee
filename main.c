@@ -1,63 +1,53 @@
-//
-//  main.c
-//  simple linkedlist
-//
-//  Created by Mingmanas Sivaraksa on 4/2/2566 BE.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "node.h"
+#include <string.h>
+#include "std_node.h"
 
-int main(int argc, const char * argv[]) {
-    int c=5;
-    struct node a,b,*head ;
-    a.value = c;
-    a.next=&b;
-    head=&a;
-    b.value=head->value+3;
+int main(int argc,const char *argv[]) {
+    if (argc < 2) {
+      //  printf("Usage: %s id1 name1 id2 name2 ...\n", argv[0]);
+        return 0;
+    }
 
-    printf("%d\n", head ->value ); //what value for 5
-    printf("%d\n", head ->next->value ); //what value for 8
-/*  Exercise I
-    1. Add 1 more than at the end
-    2. Add value(11)
-    3. Make next become NULL
- */
-    
-/*  Exercise II
-        1. Add 1 more than at the begining!!!!
-        2. Add value (2)
-        
-*/
-    typedef struct node* NodePtr;
-    NodePtr tmp=head; //add temp value to faciliate
-        
-    /*  Exercise III Use loop to print everything
-        int i,n=5;
-        for(i=0;i<n;i++){
-            printf("%3d", tmp->value);
-          // What is missing???
+
+    typedef struct node Node;
+    typedef Node* NodePtr;
+
+    NodePtr head = NULL;
+    NodePtr temp = NULL;
+
+    int i;
+    for (i = 1; i+1 < argc; i += 2) {
+
+        NodePtr newNode = (NodePtr) malloc(sizeof(Node));
+
+        newNode->id=  atoi(argv[i]);
+        strcpy(newNode->name, argv[i + 1]);
+        newNode->next = NULL;
+
+        if (head == NULL) {
+            head = newNode;
+            temp = head;
+        } else {
+            temp->next = newNode;
+            temp = newNode;
         }
-    */
-    
-   /*  Exercise IV change to while loop!! (you can use NULL to help)
-       
-         while(){
-            printf("%3d", tmp->value);
-           // What is missing???
-        }
-    */
-    
- /*  Exercise V Use malloc to create all nodes, instead of create a struct!!
-         //use a loop to help
-          
-     */
+    }
 
-    /*  Exercise VI Free all node !!
-         //use a loop to help
-          
-     */
-    
+
+    printf("Student List:\n");
+    temp = head;
+    while (temp != NULL) {
+        printf("%d %s\n", temp->id, temp->name);
+        temp = temp->next;
+    }
+
+    temp = head;
+    while (temp != NULL) {
+        head = head->next;
+        free(temp);
+        temp = head;
+    }
+
     return 0;
 }
