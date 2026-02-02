@@ -1,55 +1,139 @@
+//
+//  main.c
+//  simple linkedlist
+//
+//  Created by Mingmanas Sivaraksa on 4/2/2566 BE.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "stdnode.h"
+#include "node.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, const char * argv[]) {
+    int c=5;
+    struct node a,b,*head ;
     
-    typedef struct node Node;
-    typedef Node* NodePtr;
+    a.value = c;
+    a.next=&b;
+    head=&a;
+    b.value=head->value+3;
 
-    NodePtr head = NULL;
-    NodePtr temp = NULL;
-    int i;
+/*  Exercise I
+    1. Add 1 more than at the end
+    2. Add value(11)
+    3. Make next become NULL
+ */
 
+    struct node d;
+    b.next = &d;
+    d.value = 11;
+    //b.next->value=11
+    //(*&d).value
+    //a.next->next->value=11
+    //head->next->next->value=11
+    d.next = NULL;
     
-    if (argc < 3 || (argc - 1) % 2 != 0) {
-        return 0;
-    }
-
+/*  Exercise II
+        1. Add 1 more than at the begining!!!!
+        2. Add value (2)
+        
+*/
+    printf("Insert 2 in front\n");
+    struct node e;
+    e.value = 2;
+    e.next = head;
+    head = &e;
     
-    for (i = 1; i < argc; i += 2) {
+    printf("Insert 7 middle\n");
+    struct node f;
+    f.value=7;
+    f.next=&b;
+    a.next=&f; 
 
-        NodePtr newNode = (NodePtr) malloc(sizeof(Node));
-        if (newNode == NULL) return 1;
+    printf("%d\n", head ->value ); //what value for 5
+    printf("%d\n", head ->next->value ); //what value for 8
+    printf("%d\n", head ->next-> next->value ); //11
+    printf("%d\n", head ->next-> next-> next->value ); //insrt 2
+    printf("%d\n", head ->next-> next-> next-> next->value ); // mid 7
 
-        newNode->id = atoi(argv[i]);
-        strcpy(newNode->name, argv[i + 1]);
-        newNode->next = NULL;
-
-        if (head == NULL) {
-            head = newNode;
-            temp = head;
-        } else {
-            temp->next = newNode;
-            temp = temp->next;
+    typedef struct node* NodePtr;
+    NodePtr tmp=head; //add temp value to faciliate
+        
+    /*  Exercise III Use loop to print everything
+        int i,n=5;
+        for(i=0;i<n;i++){
+            printf("%3d", tmp->value);
+          // What is missing???
         }
-    }
-
+    */
+     int i,n=5;
+        for(i=0;i<n;i++){
+            printf("%3d", tmp->value);
+            tmp=tmp->next; //อันนี้หาย
+        }
+        printf("\n");
     
-    temp = head;
-    while (temp) {
-        printf("%d %s\n", temp->id, temp->name);
-        temp = temp->next;
-    }
+   /*  Exercise IV change to while loop!! (you can use NULL to help)
+       
+         while(){
+            printf("%3d", tmp->value);
+           // What is missing???
+        }
+    */
+      tmp=head;
+         while(tmp){ //tmp!=NULL 
+            printf("%3d", tmp->value);
+            tmp=tmp->next;
 
+        }
+        printf("\n");
     
-    temp = head;
-    while (temp) {
-        head = head->next;
-        free(temp);
-        temp = head;
-    }
+ /*  Exercise V Use malloc to create all nodes, instead of create a struct!!
+         //use a loop to help
 
+    /*
+     NodePtr temp;
+     head= (nodePtr) mslloc(sizeof(struct node));
+     temp=head;
+     head->value =7;
+     head ->next= (NodePtr)malloc( sizeof(struct node));
+     head ->next ->value=9;
+     head ->next ->next= (NodePtr) malloc( sizeof(struct node));*/
+    printf("Create by malloc");
+    NodePtr temp;
+    head= (NodePtr) malloc(sizeof(struct node));
+    temp=head;
+    n=10;
+    for(i=0;i<n;i++){
+        temp->value =7+i*2;
+        temp->next= (NodePtr) malloc( sizeof(struct node));
+        temp=temp->next;
+     }
+     temp->value =7+i*2;
+     temp ->next=NULL;
+
+     tmp=head;
+     while(tmp){ //tmp!=NULL 
+            printf("%3d", tmp->value);
+            tmp=tmp->next;
+           // What is missing???
+
+        }
+        printf("\n");
+     
+          
+
+    /*  Exercise VI Free all node !!
+         //use a loop to help
+     */
+     tmp=head;
+     while(tmp){
+        head=head->next;
+        printf("Freezing %d\n",tmp->value);
+        free(tmp);
+        tmp=head;
+
+     }
+    
     return 0;
 }
