@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     NodePtr temp = NULL;
 
     int i;
-    for (i = 1; i < argc; i += 2) {
+    for (i = 1; i+1 < argc; i += 2) {
 
         NodePtr newNode = (NodePtr) malloc(sizeof(Node));
 
